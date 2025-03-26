@@ -1,0 +1,304 @@
+{% extends "layout.html" %}
+{% import "_macros.html" as macro %}
+{% block container %}
+<nav class="bg-gray-900 text-white shadow-lg">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+          <div class="flex items-center">
+              <a href="#" class="flex-shrink-0 flex items-center">
+                <img class="h-8 w-auto" src="{{ url_for('static', filename='img/logo.png') }}"  alt="Logo">
+                  <span class="ml-2 text-xl font-bold">Pizzas</span>
+              </a>
+              <div class="hidden md:ml-6 md:flex md:space-x-8">
+                  <a href="{{url_for('auth.index')}}" class="text-white   border-indigo-500  px-1  px-1 pt-1 inline-flex items-center text-sm font-medium">
+                     Inicio
+                  </a>
+                  <a href="{{url_for('provedor_bp.index')}}" class="text-gray-300 hover:text-white border-b-2 border-transparent hover:border-gray-300 px-1 pt-1 inline-flex items-center text-sm font-medium">
+                     Proveedores
+                  </a>
+                  <a href="#" class="text-white border-b-2 border-indigo-500  px-1  px-1 pt-1 inline-flex items-center text-sm font-medium">
+                     Sistema
+                  </a>
+                  
+              </div>
+          </div>
+          <div class="flex items-center">
+              <!-- Search -->
+              <div class="hidden md:flex md:ml-4">
+                  <div class="relative">
+                      <input type="text" class="bg-gray-800 text-white rounded-md pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-64" placeholder="Search...">
+                      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                          </svg>
+                      </div>
+                  </div>
+              </div>
+              
+              <!-- Profile dropdown -->
+              <div class="ml-3 relative hidden md:block">
+                  <div>
+                      <button type="button" class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                          <span class="sr-only">Open user menu</span>
+                          <img class="h-8 w-8 rounded-full" src="https://definicion.de/wp-content/uploads/2019/07/perfil-de-usuario.png" alt="">
+                      </button>
+                  </div>
+                  
+                  <!-- Dropdown menu, show/hide based on menu state -->
+                  <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" id="user-menu" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                      
+                      <a href="{{ url_for('auth.logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Cerrar Sesion</a>
+                  </div>
+              </div>
+              
+              <!-- Mobile menu button -->
+              <div class="flex items-center md:hidden ml-4">
+                  <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-expanded="false" id="mobile-menu-button">
+                      <span class="sr-only">Open main menu</span>
+                      <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                      </svg>
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Mobile menu, show/hide based on menu state -->
+  <div class="md:hidden hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+          <a href="#" class="bg-gray-800 text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
+          <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
+          <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+          <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendar</a>
+      </div>
+      
+      <!-- Mobile search -->
+      <div class="px-2 pt-2 pb-3">
+          <div class="relative">
+              <input type="text" class="bg-gray-800 text-white w-full rounded-md pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Search...">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                  </svg>
+              </div>
+          </div>
+      </div>
+      
+      <!-- Mobile profile -->
+      <div class="pt-4 pb-3 border-t border-gray-700">
+          <div class="flex items-center px-5">
+              <div class="flex-shrink-0">
+                  <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+              </div>
+              <div class="ml-3">
+                  <div class="text-base font-medium text-white">Tom Cook</div>
+                  <div class="text-sm font-medium text-gray-400">tom@example.com</div>
+              </div>
+          </div>
+          <div class="mt-3 px-2 space-y-1">
+              <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Your Profile</a>
+              <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Settings</a>
+              <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign out</a>
+          </div>
+      </div>
+  </div>
+</nav>
+<div class="min-h-screen w-screen px-4 py-2">
+   
+  <div class="grid grid-row-3 gap-5">
+    <!-- Formulario de Pedido -->
+    <form method="POST" action="{{ url_for('cliente.sistema') }}" novalidate>
+
+
+      {{ pedido_form.csrf_token }}
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="flex flex-col items-center justify-center py-10 gap-10 bg-[#99B4D1] border border-dashed">
+        <div class="flex justify-around w-full">
+          <div>{{ macro.camposNuevos(pedido_form.nombre, class="bg-white custom-class") }}</div>
+          <div> {{ macro.camposNuevos(pedido_form.direccion, class="bg-white custom-class") }} </div>
+          <div>  {{ macro.camposNuevos(pedido_form.telefono, class="bg-white custom-class", style="width: 180px;") }} </div>
+        </div>
+        <div class="flex justify-around w-full">
+          <div class="grid grid-rows-3 border-1 border-white py-6 pr-16 pl-4 relative">
+            <span class="absolute -top-4 left-3 bg-[#99B4D1]">Tamaño pizza</span>
+            {% for subfield in pedido_form.tamanioPizza %}
+              <div style="width: 180px;">
+                {{ subfield }} {{ subfield.label.text }}
+              </div>
+            {% endfor %}
+            <!-- Mostrar errores para tamaño de pizza -->
+            {% if pedido_form.tamanioPizza.errors %}
+              <div class="text-red-600 text-xs mt-1">
+                {% for error in pedido_form.tamanioPizza.errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>         
+          <div class="grid grid-rows-3 border-1 border-white py-6 pr-16 pl-4 relative">
+            <span class="absolute -top-4 left-3 bg-[#99B4D1]">Ingredientes</span>
+            {% for subfield in pedido_form.ingredientes %}
+              <div style="width: 180px;">
+                {{ subfield }} {{ subfield.label.text }}
+              </div>
+            {% endfor %}
+            <!-- Mostrar errores para ingredientes -->
+            {% if pedido_form.ingredientes.errors %}
+              <div class="text-red-600 text-xs mt-1">
+                {% for error in pedido_form.ingredientes.errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>        
+          <div class="flex flex-col gap-10 items-center justify-center">
+            <div>
+              {{ macro.camposNuevos(pedido_form.numPizzas, class="bg-white custom-class", style="width: 180px;") }}
+            </div>
+            <input type="submit" name="Agregar" value="Agregar" class="bg-gray-100 w-24 cursor-pointer hover:bg-gray-200" />
+          </div>
+        </div>
+      </div>     
+    </form>
+    <div class="grid grid-cols-2 bg-[#99B4D1] p-10 border border-dashed">
+        <div class="flex flex-col gap-10">
+          <table
+            class="py-2 w-[90%] text-sm text-left rtl:text-right bg-[#ABABAB]"
+          >
+            <thead class="text-xs bg-[#ABABAB]">
+              <tr class="bg-white">
+              <th scope="col" class="px-6 py-3">ID</th>
+              <th scope="col" class="px-6 py-3">Tamaño</th>
+              <th scope="col" class="px-6 py-3">Ingredientes</th>
+              <th scope="col" class="px-6 py-3">Num. Pizzas</th>
+              <th scope="col" class="px-6 py-3">SubTotal</th>
+              <th scope="col" class="px-6 py-3">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for pedido in pedidos %}
+                <tr>
+                  <td class="px-6 py-3 font-medium bg-white">{{ pedido.id }}</td>
+                  <td class="px-6 py-3 font-medium bg-white">{{ pedido.tamanio }}</td>
+                  <td class="px-6 py-3 font-medium bg-white">{{ pedido.ingredientes }}</td>
+                  <td class="px-6 py-3 font-medium bg-white">{{ pedido.num_pizzas }}</td>
+                  <td class="px-6 py-3 font-medium bg-white">${{ pedido.subtotal }}</td>
+                  <td class="px-6 py-3 font-medium bg-white">
+                    <!-- Botón de Quitar -->
+                    <form method="POST" action="{{ url_for('cliente.sistema') }}" novalidate>
+
+                      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                      <input type="hidden" name="id_quitar" value="{{ pedido.id }}">
+                      <input type="submit" name="Quitar" value="Quitar" class="bg-red-100 px-2 cursor-pointer hover:bg-red-200">
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+              <tr>
+                <td class="px-6 py-3 font-medium bg-[#ABABAB]"></td>
+                <td class="px-6 py-3 font-medium bg-[#ABABAB]"></td>
+                <td class="px-6 py-3 font-medium bg-[#ABABAB]"></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="flex justify-around">
+            {% if pedidos %}
+            <div class="flex justify-end mt-4">
+              <form method="POST" action="{{ url_for('cliente.sistema') }}" novalidate>
+
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="submit" name="Terminar" value="Terminar Pedido" class=" bg-gray-100 px-2" />
+              </form>
+            </div>
+          {% endif %}    
+          </div>
+        </div>
+      <div class="flex flex-col h-auto w-auto bg-[#ABABAB] p-6 items-center gap-5 border border-dashed">
+        <div class="flex flex-col border border-white w-full items-center justify-center h-[200px] overflow-y-auto">
+          <span class="font-bold text-lg mb-4">Resultados de Búsqueda</span>
+          {% if resultados_busqueda %}
+            <table class="w-full text-sm bg-white">
+              <thead>
+                <tr>
+                  <th class="px-4 py-2">Cliente</th>
+                  <th class="px-4 py-2">Fecha</th>
+                  <th class="px-4 py-2">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for venta in resultados_busqueda %}
+                  <tr>
+                    <td class="border px-4 py-2">{{ venta.nombre }}</td>
+                    <td class="border px-4 py-2">{{ venta.fecha_compra.strftime('%Y-%m-%d') }}</td>
+                    <td class="border px-4 py-2">${{ venta.total }}</td>
+                  </tr>
+                {% endfor %}
+                <tr>
+                  <td colspan="2" class="border px-4 py-2 font-bold text-right">Total:</td>
+                  <td class="border px-4 py-2 font-bold">${{ total_busqueda }}</td>
+                </tr>
+              </tbody>
+            </table>
+          {% else %}
+            <span>No hay resultados para la búsqueda</span>
+          {% endif %}
+        </div>
+        <div class="flex flex-col gap-6">
+          <h2 class="text-lg font-bold">Buscar Ventas</h2>
+          <form method="POST" action="{{ url_for('cliente.sistema') }}" novalidate class="flex flex-col gap-4">
+
+         
+            {{ busqueda_form.csrf_token }}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="border-1 border-white py-6 px-4 relative">
+                <span class="absolute -top-4 left-3 bg-[#99B4D1]">Tipo de Búsqueda</span>
+                {% for subfield in busqueda_form.tipo_busqueda %}
+                  <div class="my-2">
+                    {{ subfield }} {{ subfield.label.text }}
+                  </div>
+                {% endfor %}
+                <!-- Mostrar errores para tipo de búsqueda -->
+                {% if busqueda_form.tipo_busqueda.errors %}
+                  <div class="text-red-600 text-xs mt-1">
+                    {% for error in busqueda_form.tipo_busqueda.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+              
+              <div class="flex flex-col gap-4">
+                <div>
+                  {{ macro.camposNuevos(busqueda_form.fecha, class="bg-white custom-class", placeholder="YYYY-MM-DD o YYYY-MM") }}
+                </div>
+                <div>
+                  {{ busqueda_form.buscar(class="bg-gray-100 w-full cursor-pointer hover:bg-gray-200") }}
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      </div>
+  </div>
+</div>
+<script>
+  // Mobile menu toggle
+  document.getElementById('mobile-menu-button').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !isExpanded);
+      mobileMenu.classList.toggle('hidden');
+  });
+  
+  // User menu toggle
+  document.getElementById('user-menu-button')?.addEventListener('click', function() {
+      const userMenu = document.getElementById('user-menu');
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !isExpanded);
+      userMenu.classList.toggle('hidden');
+  });
+</script>
+{% endblock %}
