@@ -1,6 +1,6 @@
-🎯 Proyecto Flask -Login  Autenticación de Usuarios
+🎯 Proyecto BluePrints
 
-Bienvenido a este proyecto basado en Flask, donde implementamos autenticación de usuarios con manejo de sesiones  
+Bienvenido a este proyecto basado en Flask, donde implementamos autenticación de usuarios con manejo de sesiones y la implementacion de MVC con blueprints 
 
 Sigue las instrucciones para configurarlo y ejecutarlo correctamente.
 
@@ -18,7 +18,7 @@ Sigue estos pasos para configurar y ejecutar la aplicación:
 
 1️⃣ Clona el repositorio:
 
-git clone https://github.com/IDGS-801-23000387/partial3_Villafa-a.git
+git clone https://github.com/IDGS-801-23000387/partial3_Villafa-a_Blueprint.git
 
 
 2️⃣ Instala las dependencias de Python:

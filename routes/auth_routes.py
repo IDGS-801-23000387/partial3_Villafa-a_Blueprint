@@ -13,7 +13,7 @@ def login():
         if user and user.check_password(form.password.data):
             login_user(user)
             flash("Inicio de sesión exitoso", "success")
-            return redirect(url_for("auth.index"))
+            return redirect(url_for("c"))
         else:
             flash("Usuario o contraseña incorrectos", "danger")
 
